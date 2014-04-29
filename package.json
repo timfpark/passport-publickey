@@ -1,0 +1,47 @@
+{
+  "name": "passport-publickey",
+  "version": "1.0.2",
+  "description": "Public key authentication strategy for Passport.",
+  "keywords": [
+    "passport",
+    "rsa",
+    "sha256",
+    "auth",
+    "authn",
+    "authentication",
+    "publickey"
+  ],
+  "author": {
+    "name": "Tim Park",
+    "email": "timfpark@gmail.com",
+    "url": "http://timpark.io/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/timfpark/passport-publickey.git"
+  },
+  "bugs": {
+    "url": "http://github.com/timfpark/passport-publickey/issues"
+  },
+  "licenses": [
+    {
+      "type": "Apache 2",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  ],
+  "main": "./lib",
+  "dependencies": {
+    "passport-strategy": "1.x.x"
+  },
+  "devDependencies": {
+    "mocha": "1.x.x",
+    "chai": "1.x.x",
+    "chai-passport-strategy": "0.1.x"
+  },
+  "engines": {
+    "node": ">= 0.4.0"
+  },
+  "scripts": {
+    "test": "node_modules/.bin/mocha --reporter spec --require test/bootstrap/node test/*.test.js"
+  }
+}
