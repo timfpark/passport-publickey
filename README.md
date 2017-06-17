@@ -35,7 +35,7 @@ passport.use(new PublicKeyStrategy(
     in: 'body'
   },
   function(findByValue, signature, done) {
-    User.findBy({ email: findByValue }, function (err, user) {
+    User.findOneBy({ email: findByValue }, function (err, user) {
       if (err) { return done(err); }
       if (!user) { return done(null, false); }
 
