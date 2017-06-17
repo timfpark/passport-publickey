@@ -16,30 +16,45 @@ unobtrusively integrated into any application or framework that supports
 
 #### Configure Strategy
 
-The public key authentication strategy authenticates users by verifying a signature was made by someone in possession of the private key. The strategy requires a `verify` callback, which accepts these
-credentials and calls `done` providing a user.
+The public key authentication strategy authenticates users by verifying a signature was made by someone in possession of the private key. The strategy takes in an optional `options` object, and a required `verify` callback.
 
-    passport.use(new PublicKeyStrategy(
-      function(nonce, signature, done) {
-        User.findByNonce(nonce, function (err, user) {
-          if (err) { return done(err); }
-          if (!user) { return done(null, false); }
+- The `options` object accepts to fields (below are the defaults):
+```
+{
+  findBy: 'id', // or 'email' or 'nonce' or 'publicKey' or any unique field in your database for your users
+  in: 'body' // or 'headers'
+}
+```
+The `in` parameter specifies where in the request is the authentication data, i.e. in `req.body` or in `req.headers`. The `findBy` parameter specifies by which (unique) field we should find the user in the database.
 
-          var verifier = crypto.createVerify("RSA-SHA256");
-          verifier.update(nonceString);
+- The `verify` function accepts these credentials and calls done providing a user:
+```
+passport.use(new PublicKeyStrategy(
+  {
+    findBy: 'email',
+    in: 'body'
+  },
+  function(findByValue, signature, done) {
+    User.findBy({ email: findByValue }, function (err, user) {
+      if (err) { return done(err); }
+      if (!user) { return done(null, false); }
 
-          var publicKeyBuf = new Buffer(user.public_key, 'base64');
+      var verifier = crypto.createVerify("RSA-SHA256");
+      verifier.update(user.nonce);
 
-          var result = verifier.verify(publicKeyBuf, signature, "base64");
+      var publicKeyBuf = new Buffer(user.publicKey, 'base64');
 
-          if (result) {
-            return done(null, user);
-          } else {
-            return done(null, false);
-          }
-        });
+      var result = verifier.verify(publicKeyBuf, signature, "base64");
+
+      if (result) {
+        return done(null, user);
+      } else {
+        return done(null, false);
       }
-    ));
+    });
+  }
+));
+```
 
 #### Authenticate Requests
 
@@ -57,9 +72,9 @@ application:
 
 ## Examples
 
-For complete, working examples, refer to the multiple [examples](https://github.com/jaredhanson/passport-local/tree/master/examples) included.
+For an example incorporated inside [FeathersJS](https://feathersjs.com), please see [here](https://github.com/amaurymartiny/feathers-authentication-publickey/tree/master/example)
 
-## Tests
+## Tests (TODO)
 
     $ npm install
     $ npm test
