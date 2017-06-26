@@ -8,7 +8,7 @@ var chai = require('chai')
 describe('Strategy', function() {
     
   describe('handling a request with valid credentials in body', function() {
-    var strategy = new Strategy({ findBy: 'id', in: 'body' }, function(findByValue, signature, done) {
+    var strategy = new Strategy(function(findByValue, signature, done) {
       if (findByValue == '1234' && signature == 'correct_token') {
         return done(null, { id: '1234' }, { scope: 'read' });
       }
@@ -45,7 +45,7 @@ describe('Strategy', function() {
   });
 
   describe('handling a request with valid credentials in query', function() {
-    var strategy = new Strategy({ findBy: 'id', in: 'body' }, function(findByValue, signature, done) {
+    var strategy = new Strategy(function(findByValue, signature, done) {
       if (findByValue == '1234' && signature == 'correct_token') {
         return done(null, { id: '1234' }, { scope: 'read' });
       }
@@ -82,7 +82,7 @@ describe('Strategy', function() {
   });
   
   describe('handling a request without a body', function() {
-    var strategy = new Strategy({ findBy: 'id', in: 'body' }, function(findByValue, signature, done) {
+    var strategy = new Strategy(function(findByValue, signature, done) {
       throw new Error('should not be called');
     });
     
@@ -106,7 +106,7 @@ describe('Strategy', function() {
   });
   
   describe('handling a request without a body, but no findByValue and signature', function() {
-    var strategy = new Strategy({ findBy: 'id', in: 'body' }, function(findByValue, signature, done) {
+    var strategy = new Strategy(function(findByValue, signature, done) {
       throw new Error('should not be called');
     });
     
@@ -133,7 +133,7 @@ describe('Strategy', function() {
   });
   
   describe('handling a request without a body, but no signature', function() {
-    var strategy = new Strategy({ findBy: 'id', in: 'body' }, function(findByValue, signature, done) {
+    var strategy = new Strategy(function(findByValue, signature, done) {
       throw new Error('should not be called');
     });
     
@@ -161,7 +161,7 @@ describe('Strategy', function() {
   });
   
   describe('handling a request without a body, but no signature', function() {
-    var strategy = new Strategy({ findBy: 'id', in: 'body' }, function(findByValue, signature, done) {
+    var strategy = new Strategy(function(findByValue, signature, done) {
       throw new Error('should not be called');
     });
     

@@ -6,7 +6,7 @@ var chai = require('chai')
 describe('Strategy', function() {
 
   describe('encountering an error during verification', function() {
-    var strategy = new Strategy({ findBy: 'id', in: 'body' }, function(findByValue, signature, done) {
+    var strategy = new Strategy(function(findByValue, signature, done) {
       done(new Error('something went wrong'));
     });
     
@@ -33,7 +33,7 @@ describe('Strategy', function() {
   });
   
   describe('encountering an exception during verification', function() {
-    var strategy = new Strategy({ findBy: 'id', in: 'body' }, function(findByValue, password, done) {
+    var strategy = new Strategy(function(findByValue, password, done) {
       throw new Error('something went horribly wrong');
     });
     

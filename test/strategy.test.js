@@ -2,8 +2,6 @@
 
 var Strategy = require('../lib/strategy');
 
-var defaultOptions = 'aa';
-
 describe('Strategy', function() {
     
   var strategy = new Strategy(function(){});

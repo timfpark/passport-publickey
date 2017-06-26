@@ -8,7 +8,7 @@ var chai = require('chai')
 describe('Strategy', function() {
     
   describe('passing request to verify callback', function() {
-    var strategyPassReq = new Strategy({ findBy: 'id', in: 'body', passReqToCallback: true }, function(req, findByValue, signature, done) {
+    var strategyPassReq = new Strategy({ passReqToCallback: true }, function(req, findByValue, signature, done) {
       if (findByValue == '1234' && signature == 'correct_token') {
         return done(null, { id: '1234' }, { scope: 'read', foo: req.headers['x-foo'] });
       }

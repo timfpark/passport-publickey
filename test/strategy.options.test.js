@@ -8,7 +8,7 @@ var chai = require('chai')
 describe('Strategy', function() {
     
   describe('handling a request without a body, but no findByValue and signature, with message option to authenticate', function() {
-    var strategy = new Strategy({ findBy: 'id', in: 'body' }, function(findByValue, signature, done) {
+    var strategy = new Strategy(function(findByValue, signature, done) {
       throw new Error('should not be called');
     });
     

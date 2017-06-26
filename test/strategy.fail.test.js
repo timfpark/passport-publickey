@@ -8,7 +8,7 @@ var chai = require('chai')
 describe('Strategy', function() {
     
   describe('failing authentication', function() {
-    var strategy = new Strategy({ findBy: 'id', in: 'body' }, function(findByValue, signature, done) {
+    var strategy = new Strategy(function(findByValue, signature, done) {
       return done(null, false);
     });
     
@@ -34,7 +34,7 @@ describe('Strategy', function() {
   });
   
   describe('failing authentication with info', function() {
-    var strategy = new Strategy({ findBy: 'id', in: 'body' }, function(findByValue, signature, done) {
+    var strategy = new Strategy(function(findByValue, signature, done) {
       return done(null, false, { message: 'authentication failed' });
     });
     
