@@ -74,7 +74,6 @@ application:
 
 For an example incorporated inside [FeathersJS](https://feathersjs.com), please see [here](https://github.com/amaurymartiny/feathers-authentication-publickey/tree/master/example)
 
-## Tests (TODO)
+## Tests
 
-    $ npm install
     $ npm test
